@@ -1,0 +1,18 @@
+<div class='petition container'>
+    <p>Lets sign a petition
+    </p>
+    <img src="someImage.jpg">
+
+    {{#if err}}<p class='error'>Ooops, something went wrong!</p>{{/if}}
+
+<form class="form" method="post">
+
+    <input type="text" name="first" placeholder="first name">
+    <input type="text" name="last" placeholder="last name">
+    <input type="text" name="signature">
+    <canvas id="sign" width="300" height="150"></canvas>
+    <button id="submit">SUBMIT</button>
+
+</div>
+</form>
+<script src="script.js" charset="utf-8"></script>
