@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const hb = require("express-handlebars");
 const cookieSession = require("cookie-session");
+const csurf = require("csurf");
+const { SESSION_SECRET: sessionSECRET } = require("./secrets");
 
 // this configures express to use express-handlebars
 app.engine("handlebars", hb());
@@ -17,10 +19,17 @@ app.use(
 );
 app.use(
     cookieSession({
-        secret: `I'm always angry.`,
+        secret: sessionSECRET,
         maxAge: 1000 * 60 * 60 * 24 * 14
     })
 );
+app.use(csurf());
+
+app.use(function(req, res, next) {
+    res.set("x-frame-options", "DENY");
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
 app.get("/", (req, res) => {
     req.session.peppermint;
@@ -28,9 +37,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/petition", (req, res) => {
-    res.render("petition", {
-        helpers: {}
-    });
+    res.render("petition");
 });
 
 app.post("/petition", (req, res) => {
@@ -53,28 +60,15 @@ app.get("/thanks", (req, res) => {
     res.render("thanks");
 });
 
-app.get("/signers", (req, res) => {
-    db.getSigners().then(data =>
-        res.render("signatures", {
-            signatures: data
+app.post("/thanks", (req, res) => {
+    db.getSigners()
+        .then(data => {
+            console.log("data: ", data);
+            res.render("thanks", {
+                data
+            });
         })
-    );
+        .catch(err => console.log("err in thanks: ", err));
 });
-
-// db.addCity("Funky Town", "Funk", 420)
-//     .then(function() {
-//         return db.getCities();
-//     })
-//     .then(data => console.log(data));
-
-// db.getCities().then(data => console.log(data));
-
-// app.get("/cities", function(req, res) {
-//     db.getCities().then(data =>
-//         res.render("cities", {
-//             cities: data
-//         })
-//     );
-// });
 
 app.listen(8080, () => console.log("port 8080 listening"));

@@ -3,11 +3,18 @@
 
     <p>Thank you for signing this petition</p>
 
-    <a href="/signers">
-    List of Signers
-</a>
+    <form method="post">
+        <button type'submit'>Show list of Signers
 
+    </button>
 
+    </form>
 
-
+{{#if data}}
+<ul>
+    {{#data}}
+    <li>{{this.first}} {{this.last}} {{this.timest}}</li> <br>
+    {{/data}}
+</ul>
+{{/if}}
 </div>

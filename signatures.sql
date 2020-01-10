@@ -5,5 +5,5 @@ CREATE TABLE petition (
     first VARCHAR NOT NULL CHECK (first != ''),
     last VARCHAR NOT NULL CHECK (last != ''),
     timeSt VARCHAR NOT NULL CHECK (timeSt != ''),
-    signature VARCHAR NOT NULL CHECK (signature != '')
+    signature VARCHAR NOT NULL CHECK  (signature != '')
 );

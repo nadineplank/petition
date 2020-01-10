@@ -3,9 +3,9 @@ const spicedPg = require("spiced-pg");
 const db = spicedPg("postgres:postgres:postgres@localhost:5432/petition");
 
 exports.getSigners = function() {
-    db.query(`SELECT first last  FROM signatures`).then(({ rows }) =>
-        console.log(rows)
-    );
+    return db
+        .query(`SELECT first, last, timeSt FROM signatures`)
+        .then(({ rows }) => rows);
 };
 
 exports.addSigner = function(firstName, lastName, timeSt, signature) {

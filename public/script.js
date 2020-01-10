@@ -2,11 +2,18 @@
     document.addEventListener("DOMContentLoaded", init);
     function init() {
         const c = document.getElementById("sign");
+        let signature = document.getElementById("signature");
+        const ctx = c.getContext("2d");
 
         c.addEventListener("mousedown", setCoords);
         c.addEventListener("mousemove", freeForm);
+        c.addEventListener("mouseup", getUrl);
 
-        const ctx = c.getContext("2d");
+        function getUrl() {
+            var dataUrl = c.toDataUrl();
+            signature.val(dataUrl);
+            console.log(signature.val());
+        }
 
         function setCoords(e) {
             const { x, y } = c.getBoundingClientRect();
