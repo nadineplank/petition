@@ -2,7 +2,7 @@
     document.addEventListener("DOMContentLoaded", init);
     function init() {
         const c = document.getElementById("sign");
-        let signature = document.getElementById("signature");
+        let signature = $('input[name="signature"]');
         const ctx = c.getContext("2d");
 
         c.addEventListener("mousedown", setCoords);
@@ -10,7 +10,7 @@
         c.addEventListener("mouseup", getUrl);
 
         function getUrl() {
-            var dataUrl = c.toDataUrl();
+            var dataUrl = c.toDataURL();
             signature.val(dataUrl);
             console.log(signature.val());
         }

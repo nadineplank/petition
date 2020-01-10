@@ -3,8 +3,8 @@ const express = require("express");
 const app = express();
 const hb = require("express-handlebars");
 const cookieSession = require("cookie-session");
+const { SESSION_SECRET: sessionSecret } = require("./secrets.json");
 const csurf = require("csurf");
-const { SESSION_SECRET: sessionSECRET } = require("./secrets");
 
 // this configures express to use express-handlebars
 app.engine("handlebars", hb());
@@ -19,20 +19,18 @@ app.use(
 );
 app.use(
     cookieSession({
-        secret: sessionSECRET,
+        secret: sessionSecret,
         maxAge: 1000 * 60 * 60 * 24 * 14
     })
 );
-app.use(csurf());
+// app.use(csurf());
 
-app.use(function(req, res, next) {
-    res.set("x-frame-options", "DENY");
-    res.locals.csrfToken = req.csrfToken();
-    next();
-});
+// app.use(function(req, res, next) {
+//     res.locals.csrfToken = req.csrfToken();
+//     next();
+// });
 
 app.get("/", (req, res) => {
-    req.session.peppermint;
     res.redirect("/petition");
 });
 
@@ -47,17 +45,29 @@ app.post("/petition", (req, res) => {
         timeSt = new Date();
 
     db.addSigner(firstName, lastName, timeSt, signature)
-        .then(function() {
+
+        .then(function(data) {
+            req.session.id = data.rows[0].id;
+            console.log(req.session.id);
             res.redirect("/thanks");
         })
         .catch(function(err) {
-            console.log("err: ", err);
+            console.log("err in addSigner: ", err);
             res.render("petition", { err });
         });
 });
 
 app.get("/thanks", (req, res) => {
-    res.render("thanks");
+    let id = req.session.id;
+    db.showSignature(id)
+        .then(result => {
+            let sig = result[0].sig;
+            console.log("signature: ", sig);
+            res.render("thanks", {
+                sig
+            });
+        })
+        .catch(err => console.log("err in showSignature: ", err));
 });
 
 app.post("/thanks", (req, res) => {
