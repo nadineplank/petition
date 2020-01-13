@@ -9,6 +9,10 @@ button {
     margin: 10px;
 }
 
+canvas {
+    border: black 2px solid;
+}
+
 input {
     margin: 10px;
     width: 170px;

@@ -11,7 +11,7 @@ exports.showSignature = function(id) {
 
 exports.getSigners = function() {
     return db
-        .query(`SELECT first, last, timeStFROM signatures`)
+        .query(`SELECT first, last, timeSt FROM signatures`)
         .then(({ rows }) => rows);
 };
 

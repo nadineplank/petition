@@ -100,16 +100,23 @@ app.post("/login", (req, res) => {
     db.login(email)
         .then(data => {
             // - compare the submitted password to the saved hashed password from the database using bcrypt's compare
-            if (bcrypt.compare(password, data)) {
-                // - if the passwords match
-                //     -  put the user's id in session (i.e., log them in)
-
-                //     - get their signature id and put it in session if it exists
-                //       redirect to /petition
-                res.redirect("/petition");
-            }
+            bcrypt
+                .compare(password, data[0].password)
+                .then(result => {
+                    if (result === true) {
+                        // - if the passwords match
+                        //     -  put the user's id in session (i.e., log them in)
+                        // req.session.id = data.rows[0].id;
+                        //     - get their signature id and put it in session if it exists
+                        //       redirect to /petition
+                        res.redirect("/petition");
+                    }
+                })
+                .catch(function(err) {
+                    console.log("wrong pw: ", err);
+                    res.render("login", { err });
+                });
         })
-
         // - if there is no match, re-render the template with an error message
         .catch(function(err) {
             console.log("err in login: ", err);
@@ -131,15 +138,14 @@ app.get("/thanks", (req, res) => {
         .catch(err => console.log("err in showSignature: ", err));
 });
 
-app.post("/thanks", (req, res) => {
+app.get("/signers", (req, res) => {
     db.getSigners()
         .then(data => {
-            console.log("data: ", data);
             res.render("Signers", {
                 data
             });
         })
-        .catch(err => console.log("err in thanks: ", err));
+        .catch(err => console.log("err in signers: ", err));
 });
 
 app.listen(8080, () => console.log("port 8080 listening"));
