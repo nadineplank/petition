@@ -100,22 +100,18 @@ app.post("/login", (req, res) => {
     db.login(email)
         .then(data => {
             // - compare the submitted password to the saved hashed password from the database using bcrypt's compare
-            bcrypt
-                .compare(password, data[0].password)
-                .then(result => {
-                    if (result === true) {
-                        // - if the passwords match
-                        //     -  put the user's id in session (i.e., log them in)
-                        // req.session.id = data.rows[0].id;
-                        //     - get their signature id and put it in session if it exists
-                        //       redirect to /petition
-                        res.redirect("/petition");
-                    }
-                })
-                .catch(function(err) {
-                    console.log("wrong pw: ", err);
-                    res.render("login", { err });
-                });
+            bcrypt.compare(password, data[0].password).then(result => {
+                if (result === true) {
+                    // - if the passwords match
+                    //     -  put the user's id in session (i.e., log them in)
+                    // req.session.id = data.rows[0].id;
+                    //     - get their signature id and put it in session if it exists
+                    //       redirect to /petition
+                    res.redirect("/petition");
+                } else {
+                    res.render("login", { err: true });
+                }
+            });
         })
         // - if there is no match, re-render the template with an error message
         .catch(function(err) {
