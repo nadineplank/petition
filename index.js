@@ -47,7 +47,7 @@ app.post("/petition", (req, res) => {
 
         .then(function(data) {
             req.session.id = data.rows[0].id;
-            console.log(req.session.id);
+
             res.redirect("/thanks");
         })
         .catch(function(err) {
@@ -104,12 +104,14 @@ app.post("/login", (req, res) => {
                 if (result === true) {
                     // - if the passwords match
                     //     -  put the user's id in session (i.e., log them in)
-                    // req.session.id = data.rows[0].id;
+                    req.session.user_id = data[0].id;
+                    // req.session.first = data[0].first;
+                    // req.session.last = data[0].last;
                     //     - get their signature id and put it in session if it exists
                     //       redirect to /petition
                     res.redirect("/petition");
                 } else {
-                    res.render("login", { err: true });
+                    res.render("login", { wrongPass: true });
                 }
             });
         })
