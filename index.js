@@ -5,6 +5,7 @@ const hb = require("express-handlebars");
 const cookieSession = require("cookie-session");
 const { SESSION_SECRET: sessionSecret } = require("./secrets.json");
 const csurf = require("csurf");
+const bcrypt = require("./bcrypt");
 
 // this configures express to use express-handlebars
 app.engine("handlebars", hb());
@@ -23,16 +24,14 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14
     })
 );
-// app.use(csurf());
+app.use(csurf());
 
-// app.use(function(req, res, next) {
-//     res.locals.csrfToken = req.csrfToken();
-//     next();
-// });
-
-app.get("/", (req, res) => {
-    res.redirect("/petition");
+app.use(function(req, res, next) {
+    res.locals.csrfToken = req.csrfToken();
+    next();
 });
+
+//// petition start page
 
 app.get("/petition", (req, res) => {
     res.render("petition");
@@ -57,6 +56,68 @@ app.post("/petition", (req, res) => {
         });
 });
 
+//////// REGISTER
+
+app.get("/", (req, res) => {
+    res.redirect("/register");
+});
+
+app.get("/register", (req, res) => {
+    res.render("register");
+});
+
+app.post("/register", (req, res) => {
+    let firstName = req.body.first,
+        lastName = req.body.last,
+        email = req.body.email;
+    ///// hash the submitted password
+    bcrypt.hash(req.body.password).then(hashedPass => {
+        // put the first, last, email and hashed password into the users table
+        db.addUser(firstName, lastName, email, hashedPass)
+            .then(function(data) {
+                // upon success put the user's id into req.session and redirect to the petition
+                req.session.id = data.rows[0].id;
+                res.redirect("/petition");
+            })
+            // upon failure, re-render the register template with an error message
+            .catch(function(err) {
+                console.log("err in register: ", err);
+                res.render("register", { err });
+            });
+    });
+});
+
+///////// LOGIN
+
+app.get("/login", (req, res) => {
+    res.render("login");
+});
+
+app.post("/login", (req, res) => {
+    let email = req.body.email,
+        password = req.body.password;
+    // - find the info from the user's table by the submitted email address
+    db.login(email)
+        .then(data => {
+            // - compare the submitted password to the saved hashed password from the database using bcrypt's compare
+            if (bcrypt.compare(password, data)) {
+                // - if the passwords match
+                //     -  put the user's id in session (i.e., log them in)
+
+                //     - get their signature id and put it in session if it exists
+                //       redirect to /petition
+                res.redirect("/petition");
+            }
+        })
+
+        // - if there is no match, re-render the template with an error message
+        .catch(function(err) {
+            console.log("err in login: ", err);
+            res.render("login", { err });
+        });
+});
+
+///////// THANKS
 app.get("/thanks", (req, res) => {
     let id = req.session.id;
     db.showSignature(id)
@@ -74,7 +135,7 @@ app.post("/thanks", (req, res) => {
     db.getSigners()
         .then(data => {
             console.log("data: ", data);
-            res.render("thanks", {
+            res.render("Signers", {
                 data
             });
         })

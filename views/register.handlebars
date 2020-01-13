@@ -1,0 +1,25 @@
+<div class='register'>
+
+
+<p class='header'>Join our campaign today!</p>
+
+
+{{#if err}}<p class='error'>Ooops, something went wrong!</p>{{/if}}
+
+<form class="form" method="post">
+
+    <input type="text" name="first" placeholder="first name">
+    <input type="text" name="last" placeholder="last name">
+    <input type="text" name="email" placeholder="email address">
+    <input type="password" name="password" placeholder="password">
+    <input type='hidden' name='_csrf' value="{{csrfToken}}">
+
+    <button id="submit">SIGN UP</button>
+
+
+</form>
+
+<p> If you are already a member, please <a href="/login">log in</a></p>
+
+
+</div>

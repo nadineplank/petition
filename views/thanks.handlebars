@@ -7,17 +7,17 @@
 
 {{/if}}
     <form method="post">
-        <button type'submit'>Show list of Signers
-
+        <button type='submit'>Show list of Signers
     </button>
+    <input type='hidden' name='_csrf' value='{{csrfToken}}'>
 
     </form>
 
-{{#if data}}
+<!-- {{#if data}}
 <ul>
     {{#data}}
     <li>{{this.first}} {{this.last}} {{this.timest}}</li> <br>
     {{/data}}
 </ul>
 {{/if}}
-</div>
+</div> -->
