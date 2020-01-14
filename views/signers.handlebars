@@ -1,8 +1,10 @@
 {{#if data}}
 <ul>
     {{#data}}
-    <li>{{this.first}} {{this.last}} {{this.timest}}</li> <br>
+    <p> <a href="{{this.url}}">{{this.first}} {{this.last}}</a> {{this.age}} {{this.city}} </p> <br>
     {{/data}}
+
+
 </ul>
 {{/if}}
 </div>
