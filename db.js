@@ -24,13 +24,13 @@ exports.getSigners = function() {
 exports.getSignersByCity = function(city) {
     return db
         .query(
-            `SELECT users.first, users.last, users_profiles.age, user_profiles.city, user_profiles.url, signatures
-        FROM users
-        JOIN user_profiles
+            `SELECT users.first, users.last, user_profiles.age, user_profiles.city, user_profiles.url, signatures
+        FROM user_profiles
+        JOIN users
         ON users.id = user_profiles.user_id
         JOIN signatures
         ON users.id = signatures.user_id
-        WHERE user_profiles.city = '${city}'`
+        WHERE LOWER(user_profiles.city) = LOWER('${city}')`
         )
         .then(({ rows }) => rows);
 };
