@@ -38,16 +38,14 @@ app.get("/petition", (req, res) => {
 });
 
 app.post("/petition", (req, res) => {
-    let firstName = req.body.first,
-        lastName = req.body.last,
-        signature = req.body.signature,
-        timeSt = new Date();
+    let signature = req.body.signature,
+        timeSt = new Date(),
+        id = req.session.id;
 
-    db.addSigner(firstName, lastName, timeSt, signature)
+    db.addSigner(timeSt, signature, id)
 
         .then(function(data) {
-            req.session.id = data.rows[0].id;
-
+            req.session.sigId = data.rows[0].id;
             res.redirect("/thanks");
         })
         .catch(function(err) {
@@ -59,7 +57,13 @@ app.post("/petition", (req, res) => {
 //////// REGISTER
 
 app.get("/", (req, res) => {
-    res.redirect("/register");
+    if (!req.session.id) {
+        res.redirect("/register");
+    } else if (!req.session.sigId) {
+        res.redirect("/petition");
+    } else {
+        res.redirect("/thanks");
+    }
 });
 
 app.get("/register", (req, res) => {
@@ -70,6 +74,7 @@ app.post("/register", (req, res) => {
     let firstName = req.body.first,
         lastName = req.body.last,
         email = req.body.email;
+
     ///// hash the submitted password
     bcrypt.hash(req.body.password).then(hashedPass => {
         // put the first, last, email and hashed password into the users table
@@ -77,7 +82,7 @@ app.post("/register", (req, res) => {
             .then(function(data) {
                 // upon success put the user's id into req.session and redirect to the petition
                 req.session.id = data.rows[0].id;
-                res.redirect("/petition");
+                res.redirect("/profile");
             })
             // upon failure, re-render the register template with an error message
             .catch(function(err) {
@@ -85,6 +90,20 @@ app.post("/register", (req, res) => {
                 res.render("register", { err });
             });
     });
+});
+
+//////// PROFILE
+
+app.get("/profile", (req, res) => {
+    res.render("profile");
+});
+
+app.post("/profile", (req, res) => {
+    let age = req.body.age,
+        city = req.body.city,
+        url = req.body.url,
+        id = req.session.id;
+    db.addProfile(age, city, url, id).then(res.redirect("/petition"));
 });
 
 ///////// LOGIN
@@ -128,7 +147,6 @@ app.get("/thanks", (req, res) => {
     db.showSignature(id)
         .then(result => {
             let sig = result[0].sig;
-            console.log("signature: ", sig);
             res.render("thanks", {
                 sig
             });
@@ -144,6 +162,17 @@ app.get("/signers", (req, res) => {
             });
         })
         .catch(err => console.log("err in signers: ", err));
+});
+
+app.get("/signers/:city", (req, res) => {
+    db.getSignersByCity(req.params.city)
+        .then(data => {
+            console.log("Data: ", data);
+            res.render("Signers", {
+                data
+            });
+        })
+        .catch(err => console.log("err in getSignersByCity: ", err));
 });
 
 app.listen(8080, () => console.log("port 8080 listening"));
