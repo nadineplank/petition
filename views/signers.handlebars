@@ -1,10 +1,17 @@
-{{#if data}}
+
+<div class='container'>
+
+    <p class='header'>We the signers of the petition demand that whatever the petition says should be banned!</p>
 <ul>
+    {{#if data}}
     {{#data}}
-    <p> <a href="{{this.url}}">{{this.first}} {{this.last}}</a> {{this.age}} {{this.city}} </p> <br>
+    <p class='signer'><a href="{{this.url}}">{{this.first}} {{this.last}}</a> {{this.age}} <a href="/signers/{{this.city}}">{{this.city}}</a> </p> <br>
     {{/data}}
-
-
-</ul>
+    {{/if}}
+    {{#if result}}
+{{#result}}
+<p class='signer'><a href="{{this.url}}">{{this.first}} {{this.last}}</a> {{this.age}}</p> <br>
+{{/result}}
 {{/if}}
+</ul>
 </div>

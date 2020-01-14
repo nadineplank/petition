@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-//// petition start page
+//// petition
 
 app.get("/petition", (req, res) => {
     res.render("petition");
@@ -39,10 +39,9 @@ app.get("/petition", (req, res) => {
 
 app.post("/petition", (req, res) => {
     let signature = req.body.signature,
-        timeSt = new Date(),
-        id = req.session.id;
+        timeSt = new Date();
 
-    db.addSigner(timeSt, signature, id)
+    db.addSigner(timeSt, signature, req.session.id)
 
         .then(function(data) {
             req.session.sigId = data.rows[0].id;
@@ -146,9 +145,13 @@ app.get("/thanks", (req, res) => {
     let id = req.session.id;
     db.showSignature(id)
         .then(result => {
-            let sig = result[0].sig;
-            res.render("thanks", {
-                sig
+            db.getSigners().then(data => {
+                let count = data.length;
+                let sig = result[0].sig;
+                res.render("thanks", {
+                    sig,
+                    count
+                });
             });
         })
         .catch(err => console.log("err in showSignature: ", err));
@@ -166,10 +169,9 @@ app.get("/signers", (req, res) => {
 
 app.get("/signers/:city", (req, res) => {
     db.getSignersByCity(req.params.city)
-        .then(data => {
-            console.log("Data: ", data);
+        .then(result => {
             res.render("Signers", {
-                data
+                result
             });
         })
         .catch(err => console.log("err in getSignersByCity: ", err));
