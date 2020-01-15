@@ -1,6 +1,23 @@
 const spicedPg = require("spiced-pg");
 
-const db = spicedPg("postgres:postgres:postgres@localhost:5432/petition");
+const db = spicedPg(
+    process.env.DATABASE_URL ||
+        "postgres:postgres:postgres@localhost:5432/petition"
+);
+
+/////// SIGNATURE
+exports.addSigner = function(timeSt, sig, id) {
+    return db.query(
+        `INSERT INTO signatures (timeSt, sig, user_id)
+        VALUES ($1, $2, $3)
+        RETURNING id`,
+        [timeSt, sig, id]
+    );
+};
+
+exports.deleteSig = function(id) {
+    return db.query(`DELETE FROM signatures WHERE user_id = ${id}`);
+};
 
 exports.showSignature = function(id) {
     return db
@@ -35,14 +52,7 @@ exports.getSignersByCity = function(city) {
         .then(({ rows }) => rows);
 };
 
-exports.addSigner = function(timeSt, sig, id) {
-    return db.query(
-        `INSERT INTO signatures (timeSt, sig, user_id)
-        VALUES ($1, $2, $3)
-        RETURNING id`,
-        [timeSt, sig, id]
-    );
-};
+////// USER
 
 exports.addUser = function(firstName, lastName, email, password) {
     return db.query(
@@ -59,6 +69,14 @@ exports.addProfile = function(age, city, url, id) {
     VALUES ($1, $2, $3, $4)
     RETURNING id`,
         [age, city, url, id]
+    );
+};
+
+exports.getProfile = function(id) {
+    return db.query(
+        `SELECT users.first, users.last, user_profiles.age, user_profiles.url, users.email
+        FROM user_profiles
+        JOIN users` //// not finished yet
     );
 };
 

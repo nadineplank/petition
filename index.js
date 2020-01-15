@@ -31,34 +31,12 @@ app.use(function(req, res, next) {
     next();
 });
 
-//// petition
-
-app.get("/petition", (req, res) => {
-    res.render("petition");
-});
-
-app.post("/petition", (req, res) => {
-    let signature = req.body.signature,
-        timeSt = new Date();
-
-    db.addSigner(timeSt, signature, req.session.id)
-
-        .then(function(data) {
-            req.session.sigId = data.rows[0].id;
-            res.redirect("/thanks");
-        })
-        .catch(function(err) {
-            console.log("err in addSigner: ", err);
-            res.render("petition", { err });
-        });
-});
-
 //////// REGISTER
 
 app.get("/", (req, res) => {
     if (!req.session.id) {
         res.redirect("/register");
-    } else if (!req.session.sigId) {
+    } else if (!req.session.signatureId) {
         res.redirect("/petition");
     } else {
         res.redirect("/thanks");
@@ -105,6 +83,43 @@ app.post("/profile", (req, res) => {
     db.addProfile(age, city, url, id).then(res.redirect("/petition"));
 });
 
+///////// PROFILE EDIT
+
+app.get("/profile/edit", (req, res) => {
+    // Do the query to get the current info for the user from the users and user_profiles tables so you can passed it to the template
+    res.render("edit");
+});
+
+app.post("/profile/edit", (req, res) => {
+    let first = req.body.first,
+        last = req.body.last,
+        age = req.body.age,
+        city = req.body.city,
+        url = req.body.url;
+    //Determine what query to do for the users table based on whether or not the user typed a new password and do it
+    //
+    // if you need to update four, you must hash the password before passing first, last, email, and hashed password into the query
+    // Do the upsert query for the user_profiles table
+    //
+    // if either query fails, re-render the template with an error message
+    //
+    // if both query's succeed, redirect somewhere sensible
+    //
+    // you can do both queries at the same time or you can do them sequentially
+});
+
+// POST /signature/delete
+app.post("/sig/delete", (req, res) => {
+    // Does the delete query
+    db.deleteSig(id).then(function() {
+        // Upon success
+        // make sure that req.session knows that the user no long has a signature
+        req.session.signatureId = null;
+        // redirect to /petition
+        res.redirect("/petition");
+    });
+});
+
 ///////// LOGIN
 
 app.get("/login", (req, res) => {
@@ -122,7 +137,7 @@ app.post("/login", (req, res) => {
                 if (result === true) {
                     // - if the passwords match
                     //     -  put the user's id in session (i.e., log them in)
-                    req.session.user_id = data[0].id;
+                    req.session.id = data[0].id;
                     // req.session.first = data[0].first;
                     // req.session.last = data[0].last;
                     //     - get their signature id and put it in session if it exists
@@ -137,6 +152,28 @@ app.post("/login", (req, res) => {
         .catch(function(err) {
             console.log("err in login: ", err);
             res.render("login", { err });
+        });
+});
+
+//// petition
+
+app.get("/petition", (req, res) => {
+    res.render("petition");
+});
+
+app.post("/petition", (req, res) => {
+    let signature = req.body.signature,
+        timeSt = new Date();
+
+    db.addSigner(timeSt, signature, req.session.id)
+
+        .then(function(data) {
+            req.session.signatureId = data.rows[0].id;
+            res.redirect("/thanks");
+        })
+        .catch(function(err) {
+            console.log("err in addSigner: ", err);
+            res.render("petition", { err });
         });
 });
 
@@ -177,4 +214,4 @@ app.get("/signers/:city", (req, res) => {
         .catch(err => console.log("err in getSignersByCity: ", err));
 });
 
-app.listen(8080, () => console.log("port 8080 listening"));
+app.listen(process.env.PORT || 8080, () => console.log("port listening"));
