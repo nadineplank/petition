@@ -3,7 +3,14 @@ const express = require("express");
 const app = express();
 const hb = require("express-handlebars");
 const cookieSession = require("cookie-session");
-const { SESSION_SECRET: sessionSecret } = require("./secrets.json");
+
+let secrets;
+if (process.env.NODE_ENV === "production") {
+    secrets = process.env;
+} else {
+    secrets = require("./secrets");
+}
+
 const csurf = require("csurf");
 const bcrypt = require("./bcrypt");
 
@@ -20,7 +27,7 @@ app.use(
 );
 app.use(
     cookieSession({
-        secret: sessionSecret,
+        secret: secrets.SESSION_SECRET,
         maxAge: 1000 * 60 * 60 * 24 * 14
     })
 );
