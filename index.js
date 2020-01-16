@@ -137,27 +137,13 @@ app.post("/profile/edit", (req, res) => {
         url = req.body.url,
         id = req.session.userId;
     //Determine what query to do for the users table based on whether or not the user typed a new password and do it
-    if (password === null) {
+    if (!password) {
         Promise.all([
-            db.updateProfile(age, city, url, id),
+            db.updateProfile(id, age, city, url),
             db.updateUser(id, first, last, email)
         ])
-            .then(data => {
-                res.render("edit", {
-                    data,
-                    updated: true
-                });
-            })
-            .catch(err => {
-                console.log("error in updateProfile: ", err);
-            });
-    } else {
-        bcrypt.hash(password).then(hashedPass => {
-            db.updatePassword(hashedPass, id).then(() => {
-                Promise.all([
-                    db.updateProfile(age, city, url, id),
-                    db.updateUser(id, first, last, email)
-                ])
+            .then(() => {
+                db.getProfile(req.session.userId)
                     .then(data => {
                         res.render("edit", {
                             data,
@@ -165,12 +151,59 @@ app.post("/profile/edit", (req, res) => {
                         });
                     })
                     .catch(err => {
-                        console.log("error in updateProfile: ", err);
+                        console.log("err in getProfile: ", err);
+                        res.render("edit", { err });
                     });
+            })
+            .catch(err => {
+                console.log("error in updateProfile1: ", err);
             });
-        });
+    } else {
+        bcrypt
+            .hash(password)
+            .then(hashedPass => {
+                Promise.all([
+                    db.updatePassword(hashedPass, id),
+                    db.updateProfile(id, age, city, url),
+                    db.updateUser(id, first, last, email)
+                ])
+                    .then(() => {
+                        db.getProfile(req.session.userId)
+                            .then(data => {
+                                res.render("edit", {
+                                    data,
+                                    updated: true
+                                });
+                            })
+                            .catch(err => {
+                                console.log("err in getProfile: ", err);
+                                res.render("edit", { err });
+                            });
+                    })
+
+                    .catch(err => {
+                        console.log("error in updateProfile2: ", err);
+                    });
+            })
+            .catch(err => {
+                console.log("Error in updatePassword: ", err);
+            });
     }
 });
+
+// app.get("/profile/edit/updated", (req, res) => {
+//     db.getProfile(req.session.userId)
+//         .then(data => {
+//             res.render("edit", {
+//                 data,
+//                 updated: true
+//             });
+//         })
+//         .catch(err => {
+//             console.log("err in getProfile: ", err);
+//             res.render("edit", { err });
+//         });
+// });
 
 // POST /signature/delete
 app.post("/sig/delete", (req, res) => {

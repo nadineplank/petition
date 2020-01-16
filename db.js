@@ -85,23 +85,28 @@ exports.getProfile = id => {
         .then(({ rows }) => rows);
 };
 
-exports.updateUser = (id, first, last, email) => {
+exports.updateUser = function(id, first, last, email) {
     return db.query(
-        `UPDATE users SET first = ${first}, last = ${last}, email = ${email} WHERE id = ${id}`
+        `UPDATE users SET first = $2, last = $3, email = $4 WHERE id = $1`,
+        [id, first, last, email]
     );
 };
 
-exports.updateProfile = function(age, city, url, id) {
+exports.updateProfile = function(id, age, city, url) {
     return db.query(
         `INSERT INTO user_profiles (user_id, age, city, url)
-        VALUES (${id} ${age}, ${city}, ${url})
-        ON CONFLICT (${id})
-        DO UPDATE SET age = ${age}, city = ${city} url = ${url}`
+        VALUES ($1, $2, $3, $4)
+        ON CONFLICT (user_id)
+        DO UPDATE SET age = $2, city = $3, url = $4`,
+        [id, age, city, url]
     );
 };
 
 exports.updatePassword = function(password, id) {
-    return db.query(`UPDATE users SET password = ${password} WHERE id = ${id}`);
+    return db.query(`UPDATE users SET password = $1 WHERE id = $2`, [
+        password,
+        id
+    ]);
 };
 
 // LOGIN
