@@ -5,7 +5,10 @@
 <ul>
     {{#if data}}
     {{#data}}
-    <p class='signer'><a href="http://{{this.url}}">{{this.first}} {{this.last}}</a> {{this.age}} <a href="/signers/{{this.city}}">{{this.city}}</a> </p> <br>
+    <p class='signer'>
+        {{#if url}}<a href="http://{{this.url}}"> {{/if}}
+            {{this.first}} {{this.last}}
+        {{#if url}}</a> {{/if}}  {{this.age}} <a href="/signers/{{this.city}}">{{this.city}}</a> </p> <br>
     {{/data}}
     {{/if}}
     {{#if result}}

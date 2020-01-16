@@ -54,26 +54,14 @@ app.use((req, res, next) => {
 //////// REGISTER
 
 app.get("/", (req, res) => {
-    if (req.session.userId) {
-        if (req.session.profileId) {
-            if (req.session.signatureId) {
-                res.redirect("/thanks");
-            } else {
-                res.redirect("/petition");
-            }
-        } else {
-            res.redirect("/profile");
-        }
-    } else {
-        res.redirect("/register");
-    }
+    res.redirect("/register");
 });
 
-app.get("/register", (req, res) => {
+app.get("/register", requireLoggedOutUser, (req, res) => {
     res.render("register");
 });
 
-app.post("/register", (req, res) => {
+app.post("/register", requireLoggedOutUser, (req, res) => {
     let firstName = req.body.first,
         lastName = req.body.last,
         email = req.body.email;
@@ -191,20 +179,6 @@ app.post("/profile/edit", (req, res) => {
     }
 });
 
-// app.get("/profile/edit/updated", (req, res) => {
-//     db.getProfile(req.session.userId)
-//         .then(data => {
-//             res.render("edit", {
-//                 data,
-//                 updated: true
-//             });
-//         })
-//         .catch(err => {
-//             console.log("err in getProfile: ", err);
-//             res.render("edit", { err });
-//         });
-// });
-
 // POST /signature/delete
 app.post("/sig/delete", (req, res) => {
     // Does the delete query
@@ -220,11 +194,11 @@ app.post("/sig/delete", (req, res) => {
 
 ///////// LOGIN
 
-app.get("/login", (req, res) => {
+app.get("/login", requireLoggedOutUser, (req, res) => {
     res.render("login");
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", requireLoggedOutUser, (req, res) => {
     let email = req.body.email,
         password = req.body.password;
 
@@ -256,17 +230,17 @@ app.post("/login", (req, res) => {
 
 ////// Logout
 app.get("/logout", (req, res) => {
-    req.session.user_id = null;
+    delete req.session.userId;
     res.redirect("/register");
 });
 
 //// petition
 
-app.get("/petition", (req, res) => {
+app.get("/petition", requireNoSignature, (req, res) => {
     res.render("petition");
 });
 
-app.post("/petition", (req, res) => {
+app.post("/petition", requireNoSignature, (req, res) => {
     let signature = req.body.signature,
         id = req.session.userId,
         timeSt = new Date();
@@ -284,7 +258,7 @@ app.post("/petition", (req, res) => {
 });
 
 ///////// THANKS
-app.get("/thanks", (req, res) => {
+app.get("/thanks", requireSignature, (req, res) => {
     let id = req.session.userId;
     db.showSignature(id)
         .then(result => {
@@ -300,7 +274,7 @@ app.get("/thanks", (req, res) => {
         .catch(err => console.log("err in showSignature: ", err));
 });
 
-app.get("/signers", (req, res) => {
+app.get("/signers", requireSignature, (req, res) => {
     db.getSigners()
         .then(data => {
             res.render("Signers", {
@@ -310,7 +284,7 @@ app.get("/signers", (req, res) => {
         .catch(err => console.log("err in signers: ", err));
 });
 
-app.get("/signers/:city", (req, res) => {
+app.get("/signers/:city", requireSignature, (req, res) => {
     db.getSignersByCity(req.params.city)
         .then(result => {
             res.render("Signers", {

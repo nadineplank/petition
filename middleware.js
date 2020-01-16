@@ -1,6 +1,14 @@
-exports.requireSignature = function(req, res, next) {
+exports.requireLoggedOutUser = function(req, res, next) {
     if (req.session.userId) {
-        res.redirect("/");
+        res.redirect("/petition");
+    } else {
+        next();
+    }
+};
+
+exports.requireSignature = function(req, res, next) {
+    if (!req.session.signatureId) {
+        res.redirect("/petition");
     } else {
         next();
     }
@@ -8,15 +16,7 @@ exports.requireSignature = function(req, res, next) {
 
 exports.requireNoSignature = function(req, res, next) {
     if (req.session.signatureId) {
-        res.redirect("/");
-    } else {
-        next();
-    }
-};
-
-exports.requireLoggedOutUser = function(req, res, next) {
-    if (req.session.user_id) {
-        res.redirect("/");
+        res.redirect("/thanks");
     } else {
         next();
     }
