@@ -6,12 +6,12 @@ const db = spicedPg(
 );
 
 /////// SIGNATURE
-exports.addSigner = function(timeSt, sig, id) {
+exports.addSigner = function(timeSt, sig, user_id) {
     return db.query(
         `INSERT INTO signatures (timeSt, sig, user_id)
         VALUES ($1, $2, $3)
         RETURNING id`,
-        [timeSt, sig, id]
+        [timeSt, sig, user_id]
     );
 };
 
@@ -72,16 +72,47 @@ exports.addProfile = function(age, city, url, id) {
     );
 };
 
-exports.getProfile = function(id) {
+exports.getProfile = id => {
+    return db
+        .query(
+            `SELECT * FROM users
+        LEFT JOIN signatures
+        ON users.id = signatures.user_id
+        LEFT JOIN user_profiles
+        ON users.id = user_profiles.user_id
+        WHERE users.id = '${id}'`
+        )
+        .then(({ rows }) => rows);
+};
+
+exports.updateUser = (id, first, last, email) => {
     return db.query(
-        `SELECT users.first, users.last, user_profiles.age, user_profiles.url, users.email
-        FROM user_profiles
-        JOIN users` //// not finished yet
+        `UPDATE users SET first = ${first}, last = ${last}, email = ${email} WHERE id = ${id}`
     );
 };
 
+exports.updateProfile = function(age, city, url, id) {
+    return db.query(
+        `INSERT INTO user_profiles (user_id, age, city, url)
+        VALUES (${id} ${age}, ${city}, ${url})
+        ON CONFLICT (${id})
+        DO UPDATE SET age = ${age}, city = ${city} url = ${url}`
+    );
+};
+
+exports.updatePassword = function(password, id) {
+    return db.query(`UPDATE users SET password = ${password} WHERE id = ${id}`);
+};
+
+// LOGIN
+
 exports.login = function(email) {
     return db
-        .query(`SELECT password FROM users WHERE email = '${email}'`)
+        .query(
+            `SELECT email, password, users.id, signatures.sig, user_profiles.user_id
+            FROM users LEFT JOIN signatures
+            ON users.id = signatures.user_id
+            LEFT JOIN user_profiles ON users.id = user_profiles.user_id WHERE email = '${email}'`
+        )
         .then(({ rows }) => rows);
 };
