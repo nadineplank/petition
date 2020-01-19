@@ -800,143 +800,136 @@ form {
     }
 }
 
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    input {
+        width: 90%;
+        height: 80px;
+        font-size: 250%;
+    }
 
-@media screen
-  and (device-width: 320px)
-  and (device-height: 640px)
-  and (-webkit-device-pixel-ratio: 3) {
-      input {
-          width: 90%;
-          height: 80px;
-          font-size: 250%;
-      }
+    .header {
+        font-size: 80px;
+        margin-top: 50px;
+    }
 
-      .header {
-          font-size: 80px;
-          margin-top: 50px;
-      }
+    canvas {
+        width: 800px;
+        margin-top: 25%;
+    }
 
-      canvas {
-          width: 800px;
-          margin-top: 25%;
-      }
+    img {
+        height: 250px;
+    }
 
-      img {
-          height: 250px;
-      }
+    #plants {
+        bottom: 50px;
+        position: absolute;
+    }
 
-      #plants {
-          bottom: 50px;
-          position: absolute;
-      }
+    button {
+        width: 400px;
+        font-size: 40px;
+        background-color: #a9ba5a;
+        color: whitesmoke;
+        height: 100px;
+    }
 
-      button {
-          width: 400px;
-          font-size: 40px;
-          background-color: #a9ba5a;
-          color: whitesmoke;
-          height: 100px;
-      }
+    .logout {
+        width: 250px;
+        height: 100px;
+        position: absolute;
+        bottom: 20%;
+        font-size: 40px;
+    }
 
-      .logout {
-          width: 250px;
-          height: 100px;
-          position: absolute;
-          bottom: 20%;
-          font-size: 40px;
-      }
+    /* STARTPAGE */
+    .smallHeader {
+        font-size: 45px;
+    }
 
-      /* STARTPAGE */
-      .smallHeader {
-          font-size: 45px;
-      }
+    .mainHeader {
+        font-family: "Gelasio", serif;
+        padding: 0px;
+        font-size: 400%;
+        text-align: center;
+        border-bottom: black solid 1px;
+        padding-bottom: 30px;
+        margin: 10% 10% 5% 10%;
+    }
 
-      .mainHeader {
-          font-family: "Gelasio", serif;
-          padding: 0px;
-          font-size: 400%;
-          text-align: center;
-          border-bottom: black solid 1px;
-          padding-bottom: 30px;
-          margin: 10% 10% 5% 10%;
-      }
+    .signButton {
+        width: 420px;
+        height: 80px;
+        font-size: 200%;
+    }
 
-      .signButton {
-          width: 420px;
-          height: 80px;
-          font-size: 200%;
-      }
+    #hiddenButton {
+        visibility: hidden;
+        z-index: -1;
+        position: absolute;
+    }
 
-      #hiddenButton {
-          visibility: hidden;
-          z-index: -1;
-          position: absolute;
-      }
+    #startHeader {
+        font-size: 450%;
+    }
 
-      #startHeader {
-          font-size: 450%;
-      }
+    .subHeader {
+        font-size: 210%;
+    }
 
-      .subHeader {
-          font-size: 210%;
-      }
+    .boxHeader {
+        font-size: 50px;
+    }
+    .box1 {
+        display: flex;
+        border: solid #f9ce55 13px;
+        float: none;
+        margin: 5%;
+        width: 90%;
+    }
+    .loginP {
+        font-size: 250%;
+    }
+    .box2 {
+        display: flex;
+        border: solid #f9ce55 13px;
+        box-shadow: 14px 14px 5px 0px rgba(0, 0, 0, 0.75);
+        float: none;
+        margin: 5%;
+        width: 90%;
+    }
+    .innerBox {
+        display: flex;
+        flex-direction: column;
+    }
 
-      .boxHeader {
-          font-size: 50px;
-      }
-      .box1 {
-          display: flex;
-          border: solid #f9ce55 13px;
-          float: none;
-          margin: 5%;
-          width: 90%;
-      }
-      .loginP {
-          font-size: 250%;
-      }
-      .box2 {
-          display: flex;
-          border: solid #f9ce55 13px;
-          box-shadow: 14px 14px 5px 0px rgba(0, 0, 0, 0.75);
-          float: none;
-          margin: 5%;
-          width: 90%;
-      }
-      .innerBox {
-          display: flex;
-          flex-direction: column;
-      }
+    .text {
+        font-size: 200%;
+    }
 
-      .text {
-          font-size: 200%;
-      }
+    /* LOGIN */
+    .loginContainer {
+        height: 100vh;
+    }
+    /* EDIT */
 
-      /* LOGIN */
-      .loginContainer {
-          height: 100vh;
-      }
-      /* EDIT */
+    .edit {
+        font-size: 200%;
+    }
 
-      .edit {
-          font-size: 200%;
-      }
-
-      .editContainer {
-          height: 100vh;
-      }
-      .profileEdit {
-          width: 45%;
-      }
-      #update {
-          width: 80%;
-          margin-top: 3%;
-      }
-      #delete {
-          width: 130%;
-          height: 100%;
-          padding: 5%;
-      }
-      }
-
-
+    .editContainer {
+        height: 100vh;
+    }
+    .profileEdit {
+        width: 45%;
+    }
+    #update {
+        width: 80%;
+        margin-top: 3%;
+    }
+    #delete {
+        width: 130%;
+        height: 100%;
+        padding: 5%;
+    }
 }
