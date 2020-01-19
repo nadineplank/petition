@@ -1,14 +1,16 @@
 
 <!-- <div class='container'> -->
+<img src="https://image.flaticon.com/icons/svg/1752/1752904.svg" alt="">
+    <h4 class='smallHeader'>We're the signers of the petition 'Tired of fake plants?' <br>
+        &<br> believe that plants can make an major impact on people!</h4>
 
-    <p class='header'>We the signers of the 'Tired of fake plants?' Petition </p>
 <ul>
     {{#if data}}
     {{#data}}
     <p class='signer'>
-        {{#if url}}<a href="http://{{this.url}}"> {{/if}}
+        {{#if url}}<a href="http://{{this.url}}"target="_blank">{{/if}}
             {{this.first}} {{this.last}}
-        {{#if url}}</a> {{/if}}  {{this.age}} <a href="/signers/{{this.city}}">{{this.city}}</a> </p> <br>
+        {{#if url}}</a> {{/if}}  {{this.age}} aus <a href="/signers/{{this.city}}">{{this.city}}</a> </p> <br>
     {{/data}}
     {{/if}}
     {{#if result}}

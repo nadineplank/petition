@@ -1,3 +1,5 @@
+<div class="editContainer">
+
 
     <p class='header'>Edit your profile</p>
 
@@ -13,36 +15,43 @@
     <p class='edit'>First Name</p>
     </div>
     <div class="profileEdit">
-    <input class='editInput' type="text" name="last" value="{{this.last}}">
-    <p class='edit'>Last Name</p>
-</div>
+        <input class='editInput' type="text" name="last" value="{{this.last}}">
+        <p class='edit'>Last Name</p>
+    </div>
     <div class="profileEdit">
-    <input class='editInput' type="text" name="email" value="{{this.email}}">
-    <p class='edit'>Email Address</p>
-</div>
-<div class="profileEdit">
-    <input class='editInput' type="password" name="password" placeholder="new password">
-    <p class='edit'>Password</p>
-</div>
-<div class="profileEdit">
-
-    <input class='editInput' type="text" name="age" value="{{this.age}}">
-    <p class='edit'>Age</p>
-</div>
-<div class="profileEdit">
-    <input class='editInput' type="text" name="city" value="{{this.city}}">
-    <p class='edit'>City</p>
-</div>
-<div class="profileEdit">
-    <input class='editInput' type="text" name="url" value="{{this.url}}">
-    <p class='edit'>Homepage</p>
-</div>
+        <input class='editInput' type="text" name="age" value="{{this.age}}">
+        <p class='edit'>Age</p>
+    </div>
+    <div class="profileEdit">
+        <input class='editInput' type="text" name="email" value="{{this.email}}">
+        <p class='edit'>Email Address</p>
+    </div>
+    <div class="profileEdit">
+        <input class='editInput' type="text" name="city" value="{{this.city}}">
+        <p class='edit'>City</p>
+    </div>
+    <div class="profileEdit">
+        <input class='editInput' type="text" name="url" value="{{this.url}}">
+        <p class='edit'>Homepage</p>
+    </div>
+    <div class="profileEdit">
+        <input class='editInput' type="password" name="password" placeholder="new password">
+        <p class='edit'>Password</p>
+    </div>
     <button id='update'>UPDATE</button>
     {{/data}}
 </form>
-    <form method="POST" action="/sig/delete">
-        <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <button id='delete'>DELETE YOUR SIGNATURE</button>
-    </form>
+
+<form method="POST" action="/sig/delete">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <button id='delete'>DELETE YOUR SIGNATURE</button>
+</form>
 
     {{>logout}}
+    <div id="plants">
+
+        <img src="https://image.flaticon.com/icons/svg/1752/1752917.svg">
+        <img src="https://image.flaticon.com/icons/svg/1752/1752864.svg">
+        <img src="https://image.flaticon.com/icons/svg/1752/1752952.svg">
+    </div>
+</div>

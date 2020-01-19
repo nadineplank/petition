@@ -1,7 +1,6 @@
 * {
     box-sizing: border-box;
     margin: 0;
-
     font-family: "Open Sans", sans-serif;
 }
 
@@ -34,10 +33,15 @@ button:hover {
     background-color: #a9ba5a;
     color: whitesmoke;
 }
+
+#plants {
+}
+
 canvas {
     border: black 2px solid;
     border-radius: 5px;
     margin: 20px;
+    cursor: crosshair;
 }
 
 input {
@@ -47,6 +51,9 @@ input {
     font-size: 15px;
 }
 
+#firstInput {
+    margin-top: 5%;
+}
 img {
     height: 140px;
     margin-top: 4%;
@@ -158,7 +165,7 @@ form {
     margin-bottom: 50px;
 }
 
-/* EDIT */
+/* EDIT/PROFIL */
 
 .editForm {
     display: flex;
@@ -186,13 +193,13 @@ form {
 #delete {
     width: 250px;
 }
+
 /* REGISTER, LOGIN, LOGOUT */
 
 .mainContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
     width: 100vw;
     border: orange 15px solid;
 }
@@ -201,8 +208,9 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 96vh;
     width: 100vw;
+    justify-content: center;
 }
 .login {
     text-decoration: underline;
@@ -212,11 +220,23 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 96vh;
+}
+.editContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
 }
 
 .logout {
     font-family: "Gelasio", serif;
     font-size: 23px;
+    border: 3px solid black;
+    padding: 15px;
+    width: 220px;
+    text-align: center;
+    margin: 25px;
 }
 
 .signUp {
@@ -236,4 +256,687 @@ form {
 .signButton:hover {
     color: #a9ba5a;
     border: 3px solid #a9ba5a;
+}
+
+/* IPHONE 10 */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) {
+    /* STYLES GO HERE */
+
+    input {
+        width: 90%;
+        height: 80px;
+        font-size: 250%;
+    }
+
+    .header {
+        font-size: 80px;
+        margin-top: 50px;
+    }
+
+    canvas {
+        width: 800px;
+        margin-top: 25%;
+    }
+
+    img {
+        height: 250px;
+    }
+
+    #plants {
+        bottom: 50px;
+        position: absolute;
+    }
+
+    button {
+        width: 400px;
+        font-size: 40px;
+        background-color: #a9ba5a;
+        color: whitesmoke;
+        height: 100px;
+    }
+
+    .logout {
+        width: 250px;
+        height: 100px;
+        position: absolute;
+        bottom: 20%;
+        font-size: 40px;
+    }
+
+    /* STARTPAGE */
+    .smallHeader {
+        font-size: 45px;
+    }
+
+    .mainHeader {
+        font-family: "Gelasio", serif;
+        padding: 0px;
+        font-size: 400%;
+        text-align: center;
+        border-bottom: black solid 1px;
+        padding-bottom: 30px;
+        margin: 10% 10% 5% 10%;
+    }
+
+    .signButton {
+        width: 420px;
+        height: 80px;
+        font-size: 200%;
+    }
+
+    #hiddenButton {
+        visibility: hidden;
+        z-index: -1;
+        position: absolute;
+    }
+
+    #startHeader {
+        font-size: 450%;
+    }
+
+    .subHeader {
+        font-size: 210%;
+    }
+
+    .boxHeader {
+        font-size: 50px;
+    }
+    .box1 {
+        display: flex;
+        border: solid #f9ce55 13px;
+        float: none;
+        margin: 5%;
+        width: 90%;
+    }
+    .loginP {
+        font-size: 250%;
+    }
+    .box2 {
+        display: flex;
+        border: solid #f9ce55 13px;
+        box-shadow: 14px 14px 5px 0px rgba(0, 0, 0, 0.75);
+        float: none;
+        margin: 5%;
+        width: 90%;
+    }
+    .innerBox {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .text {
+        font-size: 200%;
+    }
+
+    /* LOGIN */
+    .loginContainer {
+        height: 100vh;
+    }
+
+    /* EDIT */
+
+    .edit {
+        font-size: 200%;
+    }
+    .profileEdit {
+        width: 45%;
+    }
+    #update {
+        width: 80%;
+        margin-top: 3%;
+    }
+    #delete {
+        width: 130%;
+        height: 100%;
+        padding: 5%;
+    }
+}
+
+/* IPHONE 6, 7, 8 */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    /* STYLES GO HERE */
+
+    input {
+        width: 90%;
+        height: 80px;
+        font-size: 250%;
+    }
+
+    .header {
+        font-size: 80px;
+        margin-top: 50px;
+    }
+
+    canvas {
+        width: 800px;
+        margin-top: 25%;
+    }
+
+    img {
+        height: 250px;
+    }
+
+    #plants {
+        bottom: 50px;
+        position: absolute;
+    }
+
+    button {
+        width: 400px;
+        font-size: 40px;
+        background-color: #a9ba5a;
+        color: whitesmoke;
+        height: 100px;
+    }
+
+    .logout {
+        width: 250px;
+        height: 100px;
+        position: absolute;
+        bottom: 20%;
+        font-size: 40px;
+    }
+
+    /* STARTPAGE */
+    .smallHeader {
+        font-size: 45px;
+    }
+
+    .mainHeader {
+        font-family: "Gelasio", serif;
+        padding: 0px;
+        font-size: 400%;
+        text-align: center;
+        border-bottom: black solid 1px;
+        padding-bottom: 30px;
+        margin: 10% 10% 5% 10%;
+    }
+
+    .signButton {
+        width: 420px;
+        height: 80px;
+        font-size: 200%;
+    }
+
+    #hiddenButton {
+        visibility: hidden;
+        z-index: -1;
+        position: absolute;
+    }
+
+    #startHeader {
+        font-size: 450%;
+    }
+
+    .subHeader {
+        font-size: 210%;
+    }
+
+    .boxHeader {
+        font-size: 50px;
+    }
+    .box1 {
+        display: flex;
+        border: solid #f9ce55 13px;
+        float: none;
+        margin: 5%;
+        width: 90%;
+    }
+    .loginP {
+        font-size: 250%;
+    }
+    .box2 {
+        display: flex;
+        border: solid #f9ce55 13px;
+        box-shadow: 14px 14px 5px 0px rgba(0, 0, 0, 0.75);
+        float: none;
+        margin: 5%;
+        width: 90%;
+    }
+    .innerBox {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .text {
+        font-size: 200%;
+    }
+
+    /* LOGIN */
+    .loginContainer {
+        height: 100vh;
+    }
+    .edit {
+        font-size: 200%;
+    }
+    .editContainer {
+        height: 100vh;
+    }
+
+    .profileEdit {
+        width: 45%;
+    }
+
+    #update {
+        width: 80%;
+        margin-top: 3%;
+    }
+    #delete {
+        width: 130%;
+        height: 100%;
+        padding: 5%;
+    }
+}
+
+/* iPhone 6, 7, & 8 Plus */
+
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+    /* STYLES GO HERE */
+    input {
+        width: 90%;
+        height: 80px;
+        font-size: 250%;
+    }
+
+    .header {
+        font-size: 80px;
+        margin-top: 50px;
+    }
+
+    canvas {
+        width: 800px;
+        margin-top: 25%;
+    }
+
+    img {
+        height: 250px;
+    }
+
+    #plants {
+        bottom: 50px;
+        position: absolute;
+    }
+
+    button {
+        width: 400px;
+        font-size: 40px;
+        background-color: #a9ba5a;
+        color: whitesmoke;
+        height: 100px;
+    }
+
+    .logout {
+        width: 250px;
+        height: 100px;
+        position: absolute;
+        bottom: 20%;
+        font-size: 40px;
+    }
+
+    /* STARTPAGE */
+    .smallHeader {
+        font-size: 45px;
+    }
+
+    .mainHeader {
+        font-family: "Gelasio", serif;
+        padding: 0px;
+        font-size: 400%;
+        text-align: center;
+        border-bottom: black solid 1px;
+        padding-bottom: 30px;
+        margin: 10% 10% 5% 10%;
+    }
+
+    .signButton {
+        width: 420px;
+        height: 80px;
+        font-size: 200%;
+    }
+
+    #hiddenButton {
+        visibility: hidden;
+        z-index: -1;
+        position: absolute;
+    }
+
+    #startHeader {
+        font-size: 450%;
+    }
+
+    .subHeader {
+        font-size: 210%;
+    }
+
+    .boxHeader {
+        font-size: 50px;
+    }
+    .box1 {
+        display: flex;
+        border: solid #f9ce55 13px;
+        float: none;
+        margin: 5%;
+        width: 90%;
+    }
+    .loginP {
+        font-size: 250%;
+    }
+    .box2 {
+        display: flex;
+        border: solid #f9ce55 13px;
+        box-shadow: 14px 14px 5px 0px rgba(0, 0, 0, 0.75);
+        float: none;
+        margin: 5%;
+        width: 90%;
+    }
+    .innerBox {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .text {
+        font-size: 200%;
+    }
+
+    /* LOGIN */
+    /* LOGIN */
+    .loginContainer {
+        height: 100vh;
+    }
+    .edit {
+        font-size: 200%;
+    }
+    .editContainer {
+        height: 100vh;
+    }
+
+    .profileEdit {
+        width: 45%;
+    }
+    #update {
+        width: 80%;
+        margin-top: 3%;
+    }
+    #delete {
+        width: 130%;
+        height: 100%;
+        padding: 5%;
+    }
+}
+
+/* Google Pixel 2 XL  */
+@media only screen and (min-width: 411px) and (max-width: 767px) {
+    /* Your Styles... */
+    input {
+        width: 90%;
+        height: 80px;
+        font-size: 250%;
+    }
+
+    .header {
+        font-size: 80px;
+        margin-top: 50px;
+    }
+
+    canvas {
+        width: 800px;
+        margin-top: 25%;
+    }
+
+    img {
+        height: 250px;
+    }
+
+    #plants {
+        bottom: 50px;
+        position: absolute;
+    }
+
+    button {
+        width: 400px;
+        font-size: 40px;
+        background-color: #a9ba5a;
+        color: whitesmoke;
+        height: 100px;
+    }
+
+    .logout {
+        width: 250px;
+        height: 100px;
+        position: absolute;
+        bottom: 20%;
+        font-size: 40px;
+    }
+
+    /* STARTPAGE */
+    .smallHeader {
+        font-size: 45px;
+    }
+
+    .mainHeader {
+        font-family: "Gelasio", serif;
+        padding: 0px;
+        font-size: 400%;
+        text-align: center;
+        border-bottom: black solid 1px;
+        padding-bottom: 30px;
+        margin: 10% 10% 5% 10%;
+    }
+
+    .signButton {
+        width: 420px;
+        height: 80px;
+        font-size: 200%;
+    }
+
+    #hiddenButton {
+        visibility: hidden;
+        z-index: -1;
+        position: absolute;
+    }
+
+    #startHeader {
+        font-size: 450%;
+    }
+
+    .subHeader {
+        font-size: 210%;
+    }
+
+    .boxHeader {
+        font-size: 50px;
+    }
+    .box1 {
+        display: flex;
+        border: solid #f9ce55 13px;
+        float: none;
+        margin: 5%;
+        width: 90%;
+    }
+    .loginP {
+        font-size: 250%;
+    }
+    .box2 {
+        display: flex;
+        border: solid #f9ce55 13px;
+        box-shadow: 14px 14px 5px 0px rgba(0, 0, 0, 0.75);
+        float: none;
+        margin: 5%;
+        width: 90%;
+    }
+    .innerBox {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .text {
+        font-size: 200%;
+    }
+
+    /* LOGIN */
+    .loginContainer {
+        height: 100vh;
+    }
+    /* EDIT */
+
+    .edit {
+        font-size: 200%;
+    }
+
+    .editContainer {
+        height: 100vh;
+    }
+    .profileEdit {
+        width: 45%;
+    }
+    #update {
+        width: 80%;
+        margin-top: 3%;
+    }
+    #delete {
+        width: 130%;
+        height: 100%;
+        padding: 5%;
+    }
+}
+
+
+@media screen
+  and (device-width: 320px)
+  and (device-height: 640px)
+  and (-webkit-device-pixel-ratio: 3) {
+      input {
+          width: 90%;
+          height: 80px;
+          font-size: 250%;
+      }
+
+      .header {
+          font-size: 80px;
+          margin-top: 50px;
+      }
+
+      canvas {
+          width: 800px;
+          margin-top: 25%;
+      }
+
+      img {
+          height: 250px;
+      }
+
+      #plants {
+          bottom: 50px;
+          position: absolute;
+      }
+
+      button {
+          width: 400px;
+          font-size: 40px;
+          background-color: #a9ba5a;
+          color: whitesmoke;
+          height: 100px;
+      }
+
+      .logout {
+          width: 250px;
+          height: 100px;
+          position: absolute;
+          bottom: 20%;
+          font-size: 40px;
+      }
+
+      /* STARTPAGE */
+      .smallHeader {
+          font-size: 45px;
+      }
+
+      .mainHeader {
+          font-family: "Gelasio", serif;
+          padding: 0px;
+          font-size: 400%;
+          text-align: center;
+          border-bottom: black solid 1px;
+          padding-bottom: 30px;
+          margin: 10% 10% 5% 10%;
+      }
+
+      .signButton {
+          width: 420px;
+          height: 80px;
+          font-size: 200%;
+      }
+
+      #hiddenButton {
+          visibility: hidden;
+          z-index: -1;
+          position: absolute;
+      }
+
+      #startHeader {
+          font-size: 450%;
+      }
+
+      .subHeader {
+          font-size: 210%;
+      }
+
+      .boxHeader {
+          font-size: 50px;
+      }
+      .box1 {
+          display: flex;
+          border: solid #f9ce55 13px;
+          float: none;
+          margin: 5%;
+          width: 90%;
+      }
+      .loginP {
+          font-size: 250%;
+      }
+      .box2 {
+          display: flex;
+          border: solid #f9ce55 13px;
+          box-shadow: 14px 14px 5px 0px rgba(0, 0, 0, 0.75);
+          float: none;
+          margin: 5%;
+          width: 90%;
+      }
+      .innerBox {
+          display: flex;
+          flex-direction: column;
+      }
+
+      .text {
+          font-size: 200%;
+      }
+
+      /* LOGIN */
+      .loginContainer {
+          height: 100vh;
+      }
+      /* EDIT */
+
+      .edit {
+          font-size: 200%;
+      }
+
+      .editContainer {
+          height: 100vh;
+      }
+      .profileEdit {
+          width: 45%;
+      }
+      #update {
+          width: 80%;
+          margin-top: 3%;
+      }
+      #delete {
+          width: 130%;
+          height: 100%;
+          padding: 5%;
+      }
+      }
+
+
 }

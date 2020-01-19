@@ -24,28 +24,6 @@ const bcrypt = require("./bcrypt");
 const url = require("url");
 const querystring = require("querystring");
 
-// redis
-//     .setex("pizza", 20, JSON.stringify(pizza))
-//     .then(val => {
-//         console.log("definitely set? ", val);
-//         return redis.get("pizza");
-//     })
-//     .then(val => {
-//         val = JSON.parse(val);
-//         console.log("pizza party: ", val);
-//     })
-//     .then(() => {
-//         return redis.del("pizza");
-//     })
-//     .then(val => {
-//         console.log("delete value: ", val);
-//         return redis.get("pizza");
-//     })
-//     .then(val => {
-//         console.log("definitely deleted? ", val);
-//     });
-
-// this configures express to use express-handlebars
 app.engine("handlebars", hb());
 app.set("view engine", "handlebars");
 
@@ -248,6 +226,7 @@ app.post("/login", requireLoggedOutUser, (req, res) => {
                     }
                     if (data[0].signature) {
                         req.session.signatureId = data[0].signature;
+                        console.log(req.session.signatureId);
                     }
                     res.redirect("/");
                 } else {
