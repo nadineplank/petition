@@ -1,8 +1,8 @@
 * {
     box-sizing: border-box;
     margin: 0;
-    background-color: #e3d3c3;
-    font-family: "Roboto", sans-serif;
+
+    font-family: "Open Sans", sans-serif;
 }
 
 a {
@@ -10,41 +10,191 @@ a {
     text-decoration: none;
 }
 
+p {
+    margin: 10px;
+}
+
 a:hover {
-    color: white;
+    color: #a9ba5a;
+}
+
+body {
+    background-color: whitesmoke;
 }
 
 button {
     margin: 10px;
+    height: 40px;
+    border-radius: 5px;
+    width: 160px;
+    font-size: 15px;
 }
 
+button:hover {
+    background-color: #a9ba5a;
+    color: whitesmoke;
+}
 canvas {
     border: black 2px solid;
+    border-radius: 5px;
+    margin: 20px;
 }
 
 input {
-    margin: 10px;
-    width: 170px;
-    height: 25px;
+    margin: 15px;
+    width: 350px;
+    height: 40px;
+    font-size: 15px;
+}
+
+img {
+    height: 140px;
+    margin-top: 4%;
+    margin-bottom: 2%;
 }
 
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
+}
+
+/* STARTPAGE */
+
+.mainHeader {
+    font-family: "Gelasio", serif;
+    padding: 20px;
+    font-size: 50px;
+    text-align: center;
+    border-bottom: black solid 1px;
+    padding-bottom: 30px;
+}
+.boxHeader {
+    font-size: 40px;
+    font-family: "Gelasio", serif;
+    margin-top: 15px;
+    margin: 10px;
+}
+
+.smallHeader {
+    font-family: "Gelasio", serif;
+    padding: 20px;
+    font-size: 25px;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px black solid;
 }
 
 .header {
-    font-family: "Gayathri", sans-serif;
-    padding: 20px;
+    font-family: "Gelasio", serif;
+    padding: 10px;
     font-size: 50px;
+    text-align: center;
+    border-bottom: black solid 1px;
 }
-.register {
+.subHeader {
+    font-size: 17px;
+    width: 80%;
+    text-align: center;
+    padding-top: 25px;
+}
+.boxImg {
+    margin: 0;
+    height: 200px;
+    margin-top: 0;
+    align-self: center;
+}
+
+.box1 {
+    border: solid #f9ce55 8px;
+    box-shadow: 14px 14px 5px 0px rgba(0, 0, 0, 0.75);
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    grid-template-rows: 1fr;
+    margin: 30px;
+    width: 80%;
+    padding: 10px;
+    float: left;
+    margin-left: 6%;
+}
+
+.box2 {
+    border: solid #f9ce55 8px;
+    box-shadow: -14px 14px 5px 0px rgba(0, 0, 0, 0.75);
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+    grid-template-rows: 1fr;
+    margin: 30px;
+    width: 70%;
+    padding: 10px;
+    float: right;
+    margin-right: 7%;
+}
+
+.innerBox {
+    display: grid;
+    grid-template-rows: 0.75fr 2fr;
+}
+
+.homeButtons {
+    display: flex;
+}
+
+.link {
+    justify-self: self-end;
+    text-decoration: underline;
+}
+
+.signature {
+    border: solid 2px black;
+    border-radius: 5px;
+    margin: 15px;
+}
+
+.line {
+    border-top: 1px black solid;
+    width: 500px;
+    margin-bottom: 50px;
+}
+
+/* EDIT */
+
+.editForm {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 20px;
+    justify-content: center;
+}
+.edit {
+    font-size: 12px;
+    margin: 4px;
+    text-align: center;
+}
+
+.editInput {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+#update {
+    width: 100px;
+}
+
+#delete {
+    width: 250px;
+}
+/* REGISTER, LOGIN, LOGOUT */
+
+.mainContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     width: 100vw;
+    border: orange 15px solid;
 }
 
 .container {
@@ -56,4 +206,34 @@ form {
 }
 .login {
     text-decoration: underline;
+}
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logout {
+    font-family: "Gelasio", serif;
+    font-size: 23px;
+}
+
+.signUp {
+    margin: 20px;
+    padding: 20px;
+    border: ;
+}
+
+.signButton {
+    border: 3px solid black;
+    padding: 15px;
+    width: 220px;
+    text-align: center;
+    margin: 25px;
+}
+
+.signButton:hover {
+    color: #a9ba5a;
+    border: 3px solid #a9ba5a;
 }

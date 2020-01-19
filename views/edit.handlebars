@@ -1,27 +1,48 @@
-<div class="profileContainer">
-    <p>Edit your profile</p>
+
+    <p class='header'>Edit your profile</p>
 
 {{#if error}}
 <p>Oops something went wrong!</p>
 {{/if}}
 {{#if updated}}<p class='updated'>Your profile is now updated</p>{{/if}}
-<form class="form" method="post">
+<form class="editForm" method="post">
     <input type='hidden' name='_csrf' value="{{csrfToken}}">
     {{#data}}
-    <input type="text" name="first" value="{{this.first}}">
-    <input type="text" name="last" value="{{this.last}}">
-    <input type="text" name="email" value="{{this.email}}">
-    <input type="password" name="password" placeholder="new password">
-    <input type="text" name="age" value="{{this.age}}">
-    <input type="text" name="city" value="{{this.city}}">
-    <input type="text" name="url" value="{{this.url}}">
-    <button>UPDATE</button>
+    <div class="profileEdit">
+        <input class='editInput' type="text" name="first" value="{{this.first}}">
+    <p class='edit'>First Name</p>
+    </div>
+    <div class="profileEdit">
+    <input class='editInput' type="text" name="last" value="{{this.last}}">
+    <p class='edit'>Last Name</p>
+</div>
+    <div class="profileEdit">
+    <input class='editInput' type="text" name="email" value="{{this.email}}">
+    <p class='edit'>Email Address</p>
+</div>
+<div class="profileEdit">
+    <input class='editInput' type="password" name="password" placeholder="new password">
+    <p class='edit'>Password</p>
+</div>
+<div class="profileEdit">
+
+    <input class='editInput' type="text" name="age" value="{{this.age}}">
+    <p class='edit'>Age</p>
+</div>
+<div class="profileEdit">
+    <input class='editInput' type="text" name="city" value="{{this.city}}">
+    <p class='edit'>City</p>
+</div>
+<div class="profileEdit">
+    <input class='editInput' type="text" name="url" value="{{this.url}}">
+    <p class='edit'>Homepage</p>
+</div>
+    <button id='update'>UPDATE</button>
     {{/data}}
 </form>
     <form method="POST" action="/sig/delete">
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <button>delete your signature</button>
+        <button id='delete'>DELETE YOUR SIGNATURE</button>
     </form>
 
-</div>
-{{>logout}}
+    {{>logout}}

@@ -1,25 +1,114 @@
-<div class='register'>
+
+<img src="https://image.flaticon.com/icons/svg/1752/1752826.svg">
+
+<h3 class='smallHeader'>Tired of fake plants?<br></h3>
+<h1 class='mainHeader'>
+Let's bring in some plants <br>
+&<br>
+Make Spiced greener and happier!</h1>
+
+<div class="homeButtons">
+
+<a class='signButton' href="#sign">SIGN THE PETITION</a> <a class='signButton' href="#learn">LEARN MORE</a>
+
+</div>
+
+<img id='learn' src="https://image.flaticon.com/icons/svg/1752/1752928.svg">
 
 
-<p class='header'>Join our campaign today!</p>
+
+<h2 class='header'>
+    Why real plants?
+</h2>
+<h4 class='subHeader'> Studies have shown that simply adding some greenery in the form of indoor plants can have major positive benefits.<br>
+
+     Here are 3 good reasons why we should step up our plant game!
+ </h4>
+
+ <div class="plantContainer">
+<div class='box1'>
+    <img class='boxImg' src="https://image.flaticon.com/icons/svg/1752/1752873.svg">
+    <div class="innerBox">
+        <h3 class="boxHeader">
+                They help to reduce stress!
+        </h3>
+        <p> A study by the new University of Technology, Sydney found out that plants in workplaces reduced tension and anxiety by 37%, depression and dejection by 58% and anger and hostility by 44%!<br>
+            <br>
+            “This study shows that just one plant per workspace can provide a very large lift to staff spirits, and so promote wellbeing and performance.”
+            <br>
+            <br>
+        <a class='link'href="https://www.greenlifeindustry.com.au/Attachment?Action=Download&Attachment_id=1430"target="_blank">
+                Read more about it
+        </a>
+    </p>
+    </div>
+</div>
+
+<div class='box2'>
+    <div class="innerBox">
+        <h3 class="boxHeader">
+                Plants are real productivity boosters!
+        </h3>
+        <p> Productivity jumps 15% when previously ‘lean’ work environments are filled with just a handful of houseplants, according to 2014 research by the University of Exeter.
+            <br>
+
+            “What was important was that everybody could see a plant from their desk,” Knight told The Guardian. “If you are working in an environment where there’s something to get you psychologically engaged you are happier and you work better.”
+            <br>
+            <br>
+        <a class='link'href="https://www.theguardian.com/money/2014/aug/31/plants-offices-workers-productive-minimalist-employees"target="_blank">
+                Read more about it
+        </a>
+    </p>
+    </div>
+    <img class='boxImg' src="https://image.flaticon.com/icons/svg/1752/1752933.svg">
+</div>
 
 
-{{#if err}}<p class='error'>Ooops, something went wrong!</p>{{/if}}
 
-<form class="form" method="post">
+<div class='box1'>
+    <img class='boxImg' src="https://image.flaticon.com/icons/svg/1752/1752849.svg">
+    <div class="innerBox">
+        <h3 class="boxHeader">
+                They make clean fresh air!
+        </h3>
+        <p> While humans need oxygen to survive, plants absorb a gas we don’t need – carbon dioxide – and combine it with water and light to produce energy in a process called photosynthesis.
+            <br>
+            <br>
+            Recent research of the University of Technology Sydney has found that indoor plants can help reduce carbon dioxide levels by about 25% in buildings.<br>
 
-    <input type="text" name="first" placeholder="first name">
-    <input type="text" name="last" placeholder="last name">
+            <br>
+        <a class='link'href="https://www.ciphr.com/advice/plants-in-the-office/"target="_blank">
+                Read more about it
+        </a>
+    </p>
+    </div>
+</div>
+
+</div>
+
+
+<div class="signUp">
+
+
+<h2 class='header'>Sign up to join our campaign!</h2>
+
+
+{{#if err}}<p class='error'>Oops this e-mail is already taken! Are you already a <a class='login' href="/login">member?</a></p>{{/if}}
+
+
+
+<form class="form" method="post" id='sign'>
+
+    <input type="text" name="first" placeholder="first name" required>
+    <input type="text" name="last" placeholder="last name" required>
     <input type="email" name="email" placeholder="email address">
-    <input type="password" name="password" placeholder="password">
+    <input type="password" name="password" placeholder="password" required>
     <input type='hidden' name='_csrf' value="{{csrfToken}}">
 
     <button id="submit">SIGN UP</button>
 
 
+    <p> If you are already a member, please <a class='login' href="/login">sign in</a></p>
 </form>
-
-<p> If you are already a member, please <a class='login' href="/login">log in</a></p>
-
 
 </div>

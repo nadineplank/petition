@@ -19,6 +19,32 @@ if (process.env.NODE_ENV === "production") {
 const csurf = require("csurf");
 const bcrypt = require("./bcrypt");
 
+// const redis = require("./redis");
+
+const url = require("url");
+const querystring = require("querystring");
+
+// redis
+//     .setex("pizza", 20, JSON.stringify(pizza))
+//     .then(val => {
+//         console.log("definitely set? ", val);
+//         return redis.get("pizza");
+//     })
+//     .then(val => {
+//         val = JSON.parse(val);
+//         console.log("pizza party: ", val);
+//     })
+//     .then(() => {
+//         return redis.del("pizza");
+//     })
+//     .then(val => {
+//         console.log("delete value: ", val);
+//         return redis.get("pizza");
+//     })
+//     .then(val => {
+//         console.log("definitely deleted? ", val);
+//     });
+
 // this configures express to use express-handlebars
 app.engine("handlebars", hb());
 app.set("view engine", "handlebars");
@@ -94,25 +120,50 @@ app.post("/profile", (req, res) => {
         city = req.body.city,
         url = req.body.url,
         id = req.session.userId;
-    db.addProfile(age, city, url, id).then(data => {
-        req.session.profileId = data.rows[0].user_id;
-        res.redirect("/petition");
-    });
+    if (age === "") {
+        age = null;
+    }
+    db.addProfile(age, city, url, id)
+        .then(data => {
+            req.session.profileId = data.rows[0].user_id;
+            res.redirect("/petition");
+        })
+        .catch(err => {
+            console.log("err in profile: ", err);
+            res.render("profile");
+        });
 });
 
 ///////// PROFILE EDIT
 
 app.get("/profile/edit", (req, res) => {
-    db.getProfile(req.session.userId)
-        .then(data => {
-            res.render("edit", {
-                data
+    let parsedUrl = url.parse(req.url);
+    let updated = querystring.parse(parsedUrl.query);
+
+    if (updated.updated) {
+        db.getProfile(req.session.userId)
+            .then(data => {
+                res.render("edit", {
+                    data,
+                    updated
+                });
+            })
+            .catch(err => {
+                console.log("err in getProfile: ", err);
+                res.render("edit", { err });
             });
-        })
-        .catch(err => {
-            console.log("err in getProfile: ", err);
-            res.render("edit", { err });
-        });
+    } else {
+        db.getProfile(req.session.userId)
+            .then(data => {
+                res.render("edit", {
+                    data
+                });
+            })
+            .catch(err => {
+                console.log("err in getProfile: ", err);
+                res.render("edit", { err });
+            });
+    }
 });
 
 app.post("/profile/edit", (req, res) => {
@@ -124,6 +175,9 @@ app.post("/profile/edit", (req, res) => {
         city = req.body.city,
         url = req.body.url,
         id = req.session.userId;
+    if (age === "") {
+        age = null;
+    }
     //Determine what query to do for the users table based on whether or not the user typed a new password and do it
     if (!password) {
         Promise.all([
@@ -131,17 +185,7 @@ app.post("/profile/edit", (req, res) => {
             db.updateUser(id, first, last, email)
         ])
             .then(() => {
-                db.getProfile(req.session.userId)
-                    .then(data => {
-                        res.render("edit", {
-                            data,
-                            updated: true
-                        });
-                    })
-                    .catch(err => {
-                        console.log("err in getProfile: ", err);
-                        res.render("edit", { err });
-                    });
+                res.redirect("/profile/edit/?updated=true");
             })
             .catch(err => {
                 console.log("error in updateProfile1: ", err);
@@ -156,17 +200,7 @@ app.post("/profile/edit", (req, res) => {
                     db.updateUser(id, first, last, email)
                 ])
                     .then(() => {
-                        db.getProfile(req.session.userId)
-                            .then(data => {
-                                res.render("edit", {
-                                    data,
-                                    updated: true
-                                });
-                            })
-                            .catch(err => {
-                                console.log("err in getProfile: ", err);
-                                res.render("edit", { err });
-                            });
+                        res.redirect("/profile/edit/?updated=true");
                     })
 
                     .catch(err => {
