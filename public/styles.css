@@ -18,14 +18,13 @@ a:hover {
 }
 
 .editIcon {
-    position: absolute;
-    right: 25px;
-    top: -20px;
     height: 40px;
 }
 
-.editIcon:hover {
-    color: #a9ba5a;
+#editIcon {
+    top: 20px;
+    position: absolute;
+    right: 25px;
 }
 
 body {
