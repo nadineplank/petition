@@ -55,6 +55,10 @@ canvas {
     cursor: crosshair;
 }
 
+#plantsLogin {
+    bottom: 30px;
+    position: absolute;
+}
 input {
     margin: 15px;
     width: 350px;
