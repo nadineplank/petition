@@ -290,7 +290,7 @@ app.get("/thanks", requireSignature, (req, res) => {
 app.get("/signers", requireSignature, (req, res) => {
     db.getSigners()
         .then(data => {
-            res.render("Signers", {
+            res.render("signers", {
                 data
             });
         })
