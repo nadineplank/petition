@@ -300,7 +300,7 @@ app.get("/signers", requireSignature, (req, res) => {
 app.get("/signers/:city", requireSignature, (req, res) => {
     db.getSignersByCity(req.params.city)
         .then(result => {
-            res.render("Signers", {
+            res.render("signers", {
                 result
             });
         })
