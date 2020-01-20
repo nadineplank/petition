@@ -17,6 +17,17 @@ a:hover {
     color: #a9ba5a;
 }
 
+.editIcon {
+    position: absolute;
+    right: 25px;
+    top: -20px;
+    height: 40px;
+}
+
+.editIcon:hover {
+    color: #a9ba5a;
+}
+
 body {
     background-color: whitesmoke;
 }
