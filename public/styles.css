@@ -540,6 +540,14 @@ form {
         height: 100%;
         padding: 5%;
     }
+
+    #Links {
+        font-size: 40px;
+    }
+
+    .editIcon {
+    height: 80px;
+}
 }
 
 /* iPhone 6, 7, & 8 Plus */
@@ -676,6 +684,12 @@ form {
         height: 100%;
         padding: 5%;
     }
+    #Links {
+        font-size: 40px;
+    }
+
+    .editIcon {
+    height: 80px;
 }
 
 /* Google Pixel 2 XL  */
@@ -812,6 +826,12 @@ form {
         height: 100%;
         padding: 5%;
     }
+    #Links {
+        font-size: 40px;
+    }
+
+    .editIcon {
+    height: 80px;
 }
 
 @media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
@@ -946,4 +966,10 @@ form {
         height: 100%;
         padding: 5%;
     }
+    #Links {
+        font-size: 40px;
+    }
+
+    .editIcon {
+    height: 80px;
 }
